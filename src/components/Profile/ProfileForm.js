@@ -5,6 +5,7 @@ import { LoginToken } from "../../Store/LoginContext";
 const ProfileForm = () => {
   const ctxData = useContext(LoginToken);
   const passwordRef = useRef();
+  
 
   const SubmitHandler = (e) => {
     e.preventDefault();
@@ -23,9 +24,15 @@ const ProfileForm = () => {
         },
       }
     ).then((res) => {
-      res.json().then((data) => {
-        console.log(data);
-      });
+      if(res.ok){
+        res.json().then((data) => {
+        
+          console.log(data);
+        })
+      }else{
+        alert("error Occured!!!!!!")
+      }
+     
     });
   };
 
