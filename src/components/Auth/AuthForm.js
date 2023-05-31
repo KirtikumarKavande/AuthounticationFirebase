@@ -25,7 +25,7 @@ const AuthForm = () => {
         returnSecureToken: true,
       };
 
-      const tokenGot=fetch(
+      fetch(
         "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDnMuNg7zDVo3zomci3-trrky63QTafcMg",
         {
           method: "POST",
