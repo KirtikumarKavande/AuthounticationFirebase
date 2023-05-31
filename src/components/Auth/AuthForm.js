@@ -1,8 +1,12 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 
 import classes from "./AuthForm.module.css";
+import { LoginToken } from "../../Store/LoginContext";
 
 const AuthForm = () => {
+  const ctxData=useContext(LoginToken)
+  console.log(ctxData)
+  
   const emailRef = useRef();
   const passwordRef = useRef();
   const [isLogin, setIsLogin] = useState(true);
@@ -35,10 +39,11 @@ const AuthForm = () => {
         setIsLoading(false);
 
         if (res.ok) {
-          console.log(res)
-          console.log(res)
+        
           res.json().then((data)=>{
-                 console.log(data)
+          console.log('actual data',data)
+
+                 ctxData.isLoggedIn(data.idToken)
           });
         } else {
           console.log("try to sign ");
