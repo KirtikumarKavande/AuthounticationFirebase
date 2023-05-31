@@ -7,9 +7,13 @@ const LoginContextProvider = (props) => {
   const isLoggedIn = (token) => {
     setToken(token);
   };
+  const LoggedOut=()=>{
+    setToken(null)
+  }
   const obj = {
     token: Token,
     isLoggedIn: isLoggedIn,
+    LoggedOut:LoggedOut
    
   };
   return (
