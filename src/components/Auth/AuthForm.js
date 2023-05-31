@@ -11,9 +11,40 @@ const AuthForm = () => {
     setIsLogin((prevState) => !prevState);
   };
   function handleSubmit(e) {
+    e.preventDefault();
     setIsLoading(true);
 
     if (isLogin) {
+      const signdata = {
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+        returnSecureToken: true,
+      };
+
+      const tokenGot=fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDnMuNg7zDVo3zomci3-trrky63QTafcMg",
+        {
+          method: "POST",
+          body: JSON.stringify(signdata),
+
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      ).then((res) => {
+        setIsLoading(false);
+
+        if (res.ok) {
+          console.log(res)
+          console.log(res)
+          res.json().then((data)=>{
+                 console.log(data)
+          });
+        } else {
+          console.log("try to sign ");
+        }
+      });
+
     } else {
       e.preventDefault();
       const signUpdata = {
@@ -21,7 +52,6 @@ const AuthForm = () => {
         password: passwordRef.current.value,
         returnSecureToken: true,
       };
-      console.log("1");
 
       fetch(
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDnMuNg7zDVo3zomci3-trrky63QTafcMg",
@@ -33,8 +63,6 @@ const AuthForm = () => {
           },
         }
       ).then((res) => {
-        console.log("2");
-
         if (res.ok) {
         } else {
           console.log(
@@ -50,8 +78,9 @@ const AuthForm = () => {
       });
       setIsLoading(false);
 
-      console.log("3");
+
     }
+
   }
 
   return (
